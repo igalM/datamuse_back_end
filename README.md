@@ -2,7 +2,7 @@
 
 Actions:
 
-Run 'npm start' and go to localhost:3000
+Run 'npm start' to start the project and go to localhost:3000
 
 
 Prerequisites:
