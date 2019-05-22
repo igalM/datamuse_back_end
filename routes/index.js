@@ -31,7 +31,7 @@ router.get('/tweet-report', (req, res) => {
   db.execute(
     `select (SELECT COUNT (word) FROM affiliate) as affiliateCount,
             (SELECT COUNT (word) FROM marketing) as marketingCount,
-            (SELECT COUNT (word) FROM influencer) as influencerCount`, )
+            (SELECT COUNT (word) FROM influencer) as influencerCount`)
     .then(summary => {
       res.json(summary[0]);
     })
