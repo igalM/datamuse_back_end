@@ -6,6 +6,12 @@ const db = require('../util/database');
 const apiUrl = 'https://api.datamuse.com/words?ml=';
 const tables = ['affiliate', 'marketing', 'influencer'];
 
+
+router.get('/', (req, res) => {
+  res.render('index', { title: 'my app' });
+});
+
+
 router.get('/fetch-tweets', (req, res) => {
   axios.all([
     axios.get(`${apiUrl}affiliate`),
@@ -17,7 +23,7 @@ router.get('/fetch-tweets', (req, res) => {
       for (let i in wordsArray) {
         executeQuery(wordsArray[i], tables[i]);
       }
-      res.send('loading complete');
+      res.send('Loading complete');
     }))
 });
 
