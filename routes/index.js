@@ -29,15 +29,15 @@ router.get('/fetch-tweets', (req, res) => {
 
 function executeQuery(array, table) {
   array.forEach(element => {
-    db.execute(`INSERT INTO ${table} (word) VALUES (?)`, [element.word]);
+    db.execute(`INSERT INTO words.${table} (word) VALUES (?)`, [element.word]);
   });
 }
 
 router.get('/tweet-report', (req, res) => {
   db.execute(
-    `select (SELECT COUNT (word) FROM affiliate) as affiliateCount,
-            (SELECT COUNT (word) FROM marketing) as marketingCount,
-            (SELECT COUNT (word) FROM influencer) as influencerCount`)
+    `select (SELECT COUNT (word) FROM words.affiliate) as affiliateCount,
+            (SELECT COUNT (word) FROM words.marketing) as marketingCount,
+            (SELECT COUNT (word) FROM words.influencer) as influencerCount`)
     .then(summary => {
       res.json(summary[0]);
     })

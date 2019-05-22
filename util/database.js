@@ -1,10 +1,27 @@
 const mysql = require('mysql2');
 
-const pool = mysql.createPool({
+const con = mysql.createConnection({
+    multipleStatements: true,
     host: 'localhost',
     user: 'root',
-    database: 'words',
-    password: 'admin'
-})
+    password: 'admin',
+});
 
-module.exports = pool.promise();
+con.connect(err => {
+    if (err) throw err;
+    console.log("Connected!");
+});
+
+con.query("CREATE DATABASE IF NOT EXISTS words", (err, result) => {
+    if (err) throw err;
+});
+
+const sql = `CREATE TABLE IF NOT EXISTS words.affiliate (word VARCHAR(255));
+CREATE TABLE IF NOT EXISTS words.marketing (word VARCHAR(255));
+CREATE TABLE IF NOT EXISTS words.influencer (word VARCHAR(255))`
+
+con.query(sql, (err, result) => {
+    if (err) throw err;
+});
+
+module.exports = con.promise();
